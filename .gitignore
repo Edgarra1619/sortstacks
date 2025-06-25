@@ -1,3 +1,7 @@
+push_swap
+.cache
+compile_commands.json
+
 # Prerequisites
 *.d
 
