@@ -9,7 +9,7 @@ void	bbl_srt(int *arr, const size_t size)
 	i = 0;
 	while (i < size - 1)
 	{
-		j = size;
+		j = size - 1;
 		while (j > i)
 		{
 			if (arr[j] < arr[j - 1])
