@@ -1,0 +1,47 @@
+#include <stack.h>
+#include <unistd.h>
+
+void	stack_rotate(t_list **stack, unsigned int rotn)
+{
+	unsigned int		i;
+	t_list				*tmp;
+
+	if (rotn == 0)
+		return ;
+	ft_lstlast(*stack)->next = *stack;
+	i = 0;
+	while (i++ < rotn)
+	{
+		tmp = *stack;
+		*stack = (*stack)->next;
+	}
+	tmp->next = NULL;
+}
+
+void	stack_rrotate(t_list **stack, unsigned int rotn)
+{
+	stack_rotate(stack, ft_lstsize(*stack) - rotn);
+}
+
+t_list	*stack_pop(t_list **stack)
+{
+	t_list	*const tmp = *stack;
+
+	*stack = tmp->next;
+	tmp->next = NULL;
+	return (tmp);
+}
+
+void	stack_push(t_list **stack, t_list *node)
+{
+	ft_lstadd_front(stack, node);
+}
+
+void	stack_swap(t_list **stack)
+{
+	t_list	*const tmp = (*stack)->next;
+
+	(*stack)->next = tmp->next;
+	tmp->next = *stack;
+	*stack = tmp;
+}
