@@ -1,5 +1,4 @@
 #include <stack.h>
-#include <unistd.h>
 
 void	stack_rotate(t_list **stack, unsigned int rotn)
 {

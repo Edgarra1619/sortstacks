@@ -1,6 +1,7 @@
 #ifndef PARSER_H
 # define PARSER_H
+# include <libft.h>
 
-int	*parse_inputs(const int c, char **strs);
+t_list	*parse_inputs(const int c, char **strs);
 
 #endif
