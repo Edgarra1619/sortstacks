@@ -22,6 +22,7 @@ typedef struct	s_cost
 } t_cost;
 
 
+void	cost_to_topa(t_stacks *stacks, int num, t_cost *cost);
 void	update_costb(t_cost *cost, int n, int size);
 t_cost	best_cost(t_stacks *stacks);
 

@@ -31,21 +31,48 @@ void	update_costb(t_cost *cost, int n, int size)
 	}
 }
 
-void	cost_to_top(t_stacks *stacks, int num, t_cost *cost)
+void	cost_to_topa(t_stacks *stacks, int num, t_cost *cost)
+{
+	const t_list	*stck = stacks->stack_a;
+	const int		size = ft_lstsize(stck);
+	int				max;
+	int				i;
+
+	max = (long) stck->content;
+	i = 0;
+	while (stck)
+	{
+		if ((long) stck->content == num + 1)
+		{
+			cost->rota = i;
+			cost->rrota = size - i;
+			return ;
+		}
+		if ((long) stck->content > max && (long) stck->content < num)
+		{
+			cost->rota = i;
+			cost->rrota = size - i;
+			max = (long) stck->content;
+		}
+		stck = stck->next;
+		i++;
+	}
+}
+
+void	cost_to_topb(t_stacks *stacks, int num, t_cost *cost)
 {
 	const t_list	*stck = stacks->stack_b;
 	const int		size = ft_lstsize(stck);
 	int				max;
 	int				i;
 
-	if (num > stacks->maxb || num < stacks->minb)
-		max = stacks->maxb;
-	else
-		max = stacks->minb;
+	max = stacks->minb;
 	i = 0;
 	while (stck)
 	{
-		if ((long) stck->content == num - 1 || (long) stck->content == max)
+		if ((long) stck->content == num - 1 ||
+			((long) stck->content == max &&
+			(num > stacks->maxb || num < stacks->minb)))
 		{
 			update_costb(cost, i, size);
 			return ;
@@ -68,11 +95,12 @@ t_cost	best_cost(t_stacks *stacks)
 
 	new.rota = 0;
 	new.rrota = ft_lstsize(stacka);
-	cost_to_top(stacks, (long) stacka->content, &cheapest);
+	cheapest = new;
+	cost_to_topb(stacks, (long) stacka->content, &cheapest);
 	stacka = stacka->next;
 	while (stacka)
 	{
-		cost_to_top(stacks, (long) stacka->content, &new);
+		cost_to_topb(stacks, (long) stacka->content, &new);
 		if (new.total < cheapest.total)
 			cheapest = new;
 		if (cheapest.total <= 2)

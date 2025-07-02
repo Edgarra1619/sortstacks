@@ -27,7 +27,7 @@ void	bbl_srt(int *arr, const size_t size)
 //returns -1 on error
 t_list	*arr_to_indx_lst(int *arr, const size_t size)
 {
-	int		*tmp = ft_memdup(arr, size * sizeof(int));
+	int		*const tmp = ft_memdup(arr, size * sizeof(int));
 	size_t	i;
 	t_list	*lst;
 	t_list	*new;
@@ -47,11 +47,26 @@ t_list	*arr_to_indx_lst(int *arr, const size_t size)
 			lst = NULL;
 			break;
 		}
+		ft_lstadd_back(&lst, new);
 		i++;
 	}
 	free(tmp);
 	free(arr);
 	return (lst);
+}
+
+void	check_sorted(int *arr, int size)
+{
+	int	*const orig = arr;
+
+	while (--size)
+	{
+		if (*arr > *(arr + 1))
+			return ;
+		arr++;
+	}
+	free(orig);
+	exit (0);
 }
 
 t_list	*parse_inputs(const int c, char **strs)
@@ -76,5 +91,7 @@ t_list	*parse_inputs(const int c, char **strs)
 		}
 		i++;
 	}
+	check_sorted(ret, c);
 	return (arr_to_indx_lst(ret, c));
 }
+

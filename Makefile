@@ -6,9 +6,9 @@ OPTFLAG = 0
 SRCDIR = ./srcs/
 OBJDIR = ./objs/
 LIBFT = ./libft/
-CC = clang
+CC = cc
 INCFLAGS = -I ./includes/ -I $(LIBFT)
-CFLAGS = -Wall -Wextra -gdwarf-4 -O$(OPTFLAG)
+CFLAGS = -Wall -Wextra -g -O$(OPTFLAG)
 OBJS = $(patsubst %.c, $(OBJDIR)%.o, $(SRCS))
 
 ifeq ($(BONUS), 1)
@@ -44,7 +44,9 @@ $(MINILIBX)libmlx.a $(MINILIBX)libmlx_Linux.a:
 	make -C $(MINILIBX)
 
 test: $(NAME)
-	./$(NAME) $(TESTARGS)
+	./$(NAME) $(TESTARGS) | wc -l
+	./$(NAME) $(TESTARGS) | ./checker_linux $(TESTARGS)
+
 
 gprof: $(NAME)
 	./$(NAME) $(TESTARGS)
