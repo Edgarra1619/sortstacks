@@ -1,5 +1,5 @@
 NAME = push_swap
-SRCS = pushswap.c parser.c
+SRCS = pushswap.c parser.c cheapest.c stack.c solve.c
 TESTARGS = 10 2 5 12 11 -10 59 -11199 0 200
 BONUS = 0
 OPTFLAG = 0

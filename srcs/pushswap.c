@@ -4,46 +4,61 @@
 #include <unistd.h>
 #include <parser.h>
 #include <my_math.h>
+#include <solve.h>
 
-// TODO: push to b loop
-// TODO: push back to A
-
-void	printntimes(const char *str, int count)
+void	rotate_to_top(t_stacks *stacks)
 {
-	const size_t	size = ft_strlen(str);
+	t_cost	c;
+	t_list	*temp;
 
-	while (count--)
-		write(1, str, size);
+	ft_bzero(&c, sizeof(t_cost));
+	temp = stacks->stack_a;
+	while (temp->content)
+	{
+		c.rota++;
+		temp = temp->next;
+	}
+	c.rrota = ft_lstsize(stacks->stack_a) - c.rota;
+	c.type = (c.rrota > c.rota) << 1;
+	do_inst(stacks, c);
 }
 
-void	pushb(t_stacks *const stacks, t_cost instructions)
+void	pusha_loop(t_stacks *stacks)
 {
-	if (instructions.type & 0b10)
-		stack_rrotate(&(stacks->stack_a), instructions.rrota);
-	else
-		stack_rotate(&(stacks->stack_a), instructions.rota);
-	if (instructions.type & 0b01)
-		stack_rrotate(&(stacks->stack_b), instructions.rrotb);
-	else
-		stack_rotate(&(stacks->stack_b), instructions.rotb);
-	stack_push(&(stacks->stack_b), stack_pop(&(stacks->stack_a)));
-	if (instructions.type == RARB)
+	t_list	*tmp;
+	t_cost	c;
+
+	c.rrota = ft_lstsize(stacks->stack_a);
+	ft_bzero(&c, sizeof(t_cost));
+	while (ft_lstsize(stacks->stack_b))
 	{
-		printntimes("rr\n", min(instructions.rota, instructions.rotb));
-		instructions.rota -= min(instructions.rota, instructions.rotb);
-		instructions.rotb -= min(instructions.rota, instructions.rotb);
+		c.rota = 0;
+		tmp = stacks->stack_a;
+		while(tmp->content != stacks->stack_b->content - 1)
+		{
+			tmp = tmp->next;
+			c.rota++;
+		}
+		c.rrota -= c.rota;
+		c.type = (c.rrota > c.rota) << 1;
+		do_inst(stacks, c);
+		write(1, "pa\n", 3);
+		stack_push(&(stacks->stack_a), stack_pop(&(stacks->stack_b)));
+		c.rrota += c.rota + 1;
 	}
-	if (instructions.type == RRARRB)
+}
+
+void	pushb_loop(t_stacks *stacks)
+{
+	t_cost	temp;
+
+	while (ft_lstsize(stacks->stack_a) > 3)
 	{
-		printntimes("rrr\n", min(instructions.rrota, instructions.rrotb));
-		instructions.rrota -= min(instructions.rrota, instructions.rrotb);
-		instructions.rrotb -= min(instructions.rrota, instructions.rrotb);
+		temp = best_cost(stacks);
+		do_inst(stacks, temp);
+		stack_push(&(stacks->stack_b), stack_pop(&(stacks->stack_a)));
+		write(1, "pb\n", 3);
 	}
-	printntimes("ra\n", instructions.rota * !(instructions.type & 0b10));
-	printntimes("rb\n", instructions.rotb * !(instructions.type & 0b01));
-	printntimes("rra\n", instructions.rrota * !!(instructions.type & 0b10));
-	printntimes("rrb\n", instructions.rrotb * !!(instructions.type & 0b01));
-	write(1, "pb\n", 3);
 }
 
 void	small_solve(t_list **lsta)
@@ -76,10 +91,10 @@ int	main(int argc, char **argv)
 		write(2, "Error!\n", 7);
 		return (1);
 	}
+	pushb_loop(&stacks);
+	small_solve(&(stacks.stack_a));
+	pusha_loop(&stacks);
+	rotate_to_top(&stacks);
 
-
-
-
-	
 	ft_lstclear(&(stacks.stack_a), NULL);
 }
