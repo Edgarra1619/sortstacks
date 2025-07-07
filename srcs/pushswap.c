@@ -6,6 +6,7 @@
 #include <my_math.h>
 #include <solve.h>
 
+/*
 #include <stdio.h>
 
 void	print_stacks(t_stacks *stacks)
@@ -27,6 +28,7 @@ void	print_stacks(t_stacks *stacks)
 		printf("\n");
 	}
 }
+*/
 
 void	rotate_to_top(t_stacks *stacks)
 {
