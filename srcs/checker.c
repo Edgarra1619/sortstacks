@@ -84,10 +84,12 @@ int	main(int argc, char **argv)
 	{
 		if (c == 'r')
 			parse_rotation(&stacks);
-		else if (c == 'r')
-			return (0);
-		else if (c == 'r')
-			return (0);
+		else if (c == 's')
+			parse_swap(&stacks);
+		else if (c == 'p')
+			parse_push(&stacks);
+		else
+			error_out(&stacks);
 	}
 	if (check_sorted_stack(&stacks))
 		write(1, "KO\n", 3);
