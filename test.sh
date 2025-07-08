@@ -9,7 +9,7 @@ do
 done
 
 echo $ARG
-RESULT=$(./push_swap $ARG)
-echo "$RESULT" > result
-echo "$RESULT" | wc -l
-echo "$RESULT" | ./checker $ARG
+rm -fr result
+./push_swap $ARG > result
+wc -l < result
+./checker $ARG < result

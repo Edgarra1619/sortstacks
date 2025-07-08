@@ -1,5 +1,6 @@
 #include <instructions.h>
 #include <libft.h>
+#include <stdlib.h>
 #include <stack.h>
 #include <unistd.h>
 #include <parser.h>
@@ -13,6 +14,7 @@ void	error_out(t_stacks *const stacks)
 	ft_lstclear(&(stacks->stack_a), NULL);
 	ft_lstclear(&(stacks->stack_b), NULL);
 	write(2, "Error!\n", 7);
+	exit(0);
 }
 
 void	parse_push(t_stacks *const stacks)

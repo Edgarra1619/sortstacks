@@ -57,16 +57,9 @@ t_list	*arr_to_indx_lst(int *arr, const size_t size)
 
 void	check_sorted(int *arr, int size)
 {
-	int	*const orig = arr;
-
-	while (--size)
-	{
-		if (*arr > *(arr + 1))
-			return ;
-		arr++;
-	}
-	free(orig);
-	exit (0);
+	(void) arr;
+	(void) size;
+	return ;
 }
 
 t_list	*parse_inputs(const int c, char **strs)
