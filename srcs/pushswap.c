@@ -48,9 +48,18 @@ void	rotate_to_top(t_stacks *stacks)
 void	pusha_loop(t_stacks *stacks)
 {
 	t_cost	c;
+	const t_list	*helper = stacks->stack_a;
 
 	ft_bzero(&c, sizeof(t_cost));
 	c.rrota = ft_lstsize(stacks->stack_a);
+	while (helper)
+	{
+		if ((long)helper->content > stacks->maxa)
+			stacks->maxa = (long) helper->content;
+		if ((long)helper->content < stacks->mina)
+			stacks->mina = (long) helper->content;
+		helper = helper->next;
+	}
 	while (ft_lstsize(stacks->stack_b))
 	{
 		cost_to_topa(stacks, (long) stacks->stack_b->content, &c);
@@ -58,6 +67,10 @@ void	pusha_loop(t_stacks *stacks)
 		do_inst(stacks, c);
 		write(1, "pa\n", 3);
 		stack_push(&(stacks->stack_a), stack_pop(&(stacks->stack_b)));
+		if ((long)stacks->stack_a->content > stacks->maxa)
+			stacks->maxa = (long) stacks->stack_a->content;
+		if ((long)stacks->stack_a->content < stacks->mina)
+			stacks->mina = (long) stacks->stack_a->content;
 	}
 }
 
@@ -117,7 +130,8 @@ int	main(int argc, char **argv)
 		write(2, "Error!\n", 7);
 		return (1);
 	}
-	if (ft_lstsize(stacks.stack_a) == 2)
+	stacks.mina = ft_lstsize(stacks.stack_a);
+	if (stacks.mina == 2)
 	{
 		write(1, "sa\n", 3);
 		return (0);

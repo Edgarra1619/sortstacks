@@ -38,7 +38,9 @@ void	cost_to_topa(t_stacks *stacks, int num, t_cost *cost)
 	int				max;
 	int				i;
 
-	max = (long) stck->content;
+	max = stacks->maxa;
+	if (num > max)
+		max = stacks->mina;
 	i = 0;
 	while (stck)
 	{
@@ -48,7 +50,7 @@ void	cost_to_topa(t_stacks *stacks, int num, t_cost *cost)
 			cost->rrota = size - i;
 			return ;
 		}
-		if ((long) stck->content > max && (long) stck->content < num)
+		if ((long) stck->content <= max && (max == stacks->mina || (long) stck->content > num))
 		{
 			cost->rota = i;
 			cost->rrota = size - i;
@@ -71,13 +73,13 @@ void	cost_to_topb(t_stacks *stacks, int num, t_cost *cost)
 	while (stck)
 	{
 		if ((long) stck->content == num - 1 ||
-			((long) stck->content == max &&
+			((long) stck->content == stacks->maxb &&
 			(num > stacks->maxb || num < stacks->minb)))
 		{
 			update_costb(cost, i, size);
 			return ;
 		}
-		if ((long) stck->content > max && (long) stck->content < num)
+		if ((long) stck->content >= max && (long) stck->content < num)
 		{
 			update_costb(cost, i, size);
 			max = (long) stck->content;
@@ -100,13 +102,13 @@ t_cost	best_cost(t_stacks *stacks)
 	stacka = stacka->next;
 	while (stacka)
 	{
+		new.rota++;
+		new.rrota--;
 		cost_to_topb(stacks, (long) stacka->content, &new);
 		if (new.total < cheapest.total)
 			cheapest = new;
 		if (cheapest.total <= 2)
 			return (cheapest);
-		new.rota++;
-		new.rrota--;
 		stacka = stacka->next;
 	}
 	return (cheapest);

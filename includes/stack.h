@@ -8,6 +8,8 @@ typedef struct	s_stackpair
 	t_list	*stack_b;
 	int		maxb;
 	int		minb;
+	int		mina;
+	int		maxa;
 }	t_stacks;
 
 void	stack_rotate(t_list **stack, unsigned int rotn);

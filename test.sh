@@ -10,5 +10,6 @@ done
 
 echo $ARG
 RESULT=$(./push_swap $ARG)
+echo "$RESULT" > result
 echo "$RESULT" | wc -l
 echo "$RESULT" | ./checker_linux $ARG

@@ -13,6 +13,8 @@ void	printntimes(const char *str, int count)
 
 void	do_inst(t_stacks *const stacks, t_cost instructions)
 {
+	int	tmp;
+
 	if (instructions.type & 0b10)
 		stack_rrotate(&(stacks->stack_a), instructions.rrota);
 	else
@@ -23,15 +25,17 @@ void	do_inst(t_stacks *const stacks, t_cost instructions)
 		stack_rotate(&(stacks->stack_b), instructions.rotb);
 	if (instructions.type == RARB)
 	{
-		printntimes("rr\n", min(instructions.rota, instructions.rotb));
-		instructions.rota -= min(instructions.rota, instructions.rotb);
-		instructions.rotb -= min(instructions.rota, instructions.rotb);
+		tmp = min(instructions.rota, instructions.rotb);
+		printntimes("rr\n", tmp); 
+		instructions.rota -= tmp; 
+		instructions.rotb -= tmp;
 	}
 	if (instructions.type == RRARRB)
 	{
-		printntimes("rrr\n", min(instructions.rrota, instructions.rrotb));
-		instructions.rrota -= min(instructions.rrota, instructions.rrotb);
-		instructions.rrotb -= min(instructions.rrota, instructions.rrotb);
+		tmp = min(instructions.rrota, instructions.rrotb);
+		printntimes("rrr\n", tmp);
+		instructions.rrota -= tmp;
+		instructions.rrotb -= tmp;
 	}
 	printntimes("ra\n", instructions.rota * !(instructions.type & 0b10));
 	printntimes("rb\n", instructions.rotb * !(instructions.type & 0b01));
@@ -41,30 +45,7 @@ void	do_inst(t_stacks *const stacks, t_cost instructions)
 
 void	pushb(t_stacks *const stacks, t_cost instructions)
 {
-	if (instructions.type & 0b10)
-		stack_rrotate(&(stacks->stack_a), instructions.rrota);
-	else
-		stack_rotate(&(stacks->stack_a), instructions.rota);
-	if (instructions.type & 0b01)
-		stack_rrotate(&(stacks->stack_b), instructions.rrotb);
-	else
-		stack_rotate(&(stacks->stack_b), instructions.rotb);
-	if (instructions.type == RARB)
-	{
-		printntimes("rr\n", min(instructions.rota, instructions.rotb));
-		instructions.rota -= min(instructions.rota, instructions.rotb);
-		instructions.rotb -= min(instructions.rota, instructions.rotb);
-	}
-	if (instructions.type == RRARRB)
-	{
-		printntimes("rrr\n", min(instructions.rrota, instructions.rrotb));
-		instructions.rrota -= min(instructions.rrota, instructions.rrotb);
-		instructions.rrotb -= min(instructions.rrota, instructions.rrotb);
-	}
-	printntimes("ra\n", instructions.rota * !(instructions.type & 0b10));
-	printntimes("rb\n", instructions.rotb * !(instructions.type & 0b01));
-	printntimes("rra\n", instructions.rrota * !!(instructions.type & 0b10));
-	printntimes("rrb\n", instructions.rrotb * !!(instructions.type & 0b01));
+	do_inst(stacks, instructions);
 	write(1, "pb\n", 3);
 }
 
