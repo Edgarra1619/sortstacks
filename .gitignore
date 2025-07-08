@@ -1,3 +1,6 @@
+checker_linux
+checker
+result
 push_swap
 .cache
 compile_commands.json
