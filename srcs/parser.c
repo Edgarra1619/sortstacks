@@ -55,6 +55,8 @@ t_list	*arr_to_indx_lst(int *arr, const size_t size)
 	return (lst);
 }
 
+#ifndef CHECKER
+
 void	check_sorted(int *arr, int size)
 {
 	int	*const orig = arr;
@@ -68,6 +70,17 @@ void	check_sorted(int *arr, int size)
 	free(orig);
 	exit (0);
 }
+
+#else
+
+void	check_sorted(int *arr, int size)
+{
+	(void) arr;
+	(void) size;
+	return ;
+}
+
+#endif
 
 t_list	*parse_inputs(const int c, char **strs)
 {
