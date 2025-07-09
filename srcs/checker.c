@@ -26,7 +26,7 @@ void	error_out(t_stacks *const stacks)
 	char	c;
 
 	c = 0;
-	while (c != '\n' && read(1, &c, 1) == 1)
+	while (c != '\n' && c && read(1, &c, 1) == 1)
 		;
 	ft_lstclear(&(stacks->stack_a), NULL);
 	ft_lstclear(&(stacks->stack_b), NULL);

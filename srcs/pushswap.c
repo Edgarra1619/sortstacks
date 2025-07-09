@@ -110,7 +110,7 @@ int	main(int argc, char **argv)
 {
 	t_stacks	stacks;
 
-	if (argc <= 2)
+	if (argc < 2)
 		return (0);
 	ft_bzero(&stacks, sizeof(t_stacks));
 	stacks.stack_a = parse_inputs(argc - 1, argv + 1);
@@ -123,6 +123,7 @@ int	main(int argc, char **argv)
 	if (stacks.mina == 2)
 	{
 		write(1, "sa\n", 3);
+		ft_lstclear(&(stacks.stack_a), NULL);
 		return (0);
 	}
 	if (ft_lstsize(stacks.stack_a) != 3)
