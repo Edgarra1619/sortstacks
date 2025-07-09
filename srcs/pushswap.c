@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <instructions.h>
-#include <libft.h>
-#include <stack.h>
 #include <unistd.h>
+#include <libft.h>
+#include <instructions.h>
 #include <parser.h>
-#include <my_math.h>
 #include <solve.h>
+#include <stack.h>
 
 void	rotate_to_top(t_stacks *stacks)
 {
