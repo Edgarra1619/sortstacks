@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   instructions.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edgribei <edgribei@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/09 14:22:41 by edgribei          #+#    #+#             */
+/*   Updated: 2025/07/09 14:23:10 by edgribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef INSTRUCTIONS_H
 # define INSTRUCTIONS_H
 # include <stack.h>
@@ -11,7 +23,7 @@ enum e_instructiontype
 	RRARRB = 3,
 };
 
-typedef struct	s_cost
+typedef struct s_cost
 {
 	int						rota;
 	int						rrota;
@@ -19,12 +31,10 @@ typedef struct	s_cost
 	int						rrotb;
 	int						total;
 	enum e_instructiontype	type;
-} t_cost;
-
+}	t_cost;
 
 void	cost_to_topa(t_stacks *stacks, int num, t_cost *cost);
 void	update_costb(t_cost *cost, int n, int size);
 t_cost	best_cost(t_stacks *stacks);
-
 
 #endif

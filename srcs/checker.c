@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edgribei <edgribei@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/09 14:15:28 by edgribei          #+#    #+#             */
+/*   Updated: 2025/07/09 14:17:46 by edgribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <instructions.h>
 #include <libft.h>
 #include <stdlib.h>
@@ -33,7 +45,7 @@ void	parse_push(t_stacks *const stacks)
 
 void	parse_rotation(t_stacks *const stacks)
 {
-	void (*rotfunc)(t_list**, unsigned int);
+	void	(*rotfunc)(t_list**, unsigned int);
 	char	c[2];
 
 	rotfunc = &stack_rotate;
@@ -73,15 +85,10 @@ int	main(int argc, char **argv)
 	t_stacks	stacks;
 	char		c;
 
-	if (argc <= 2)
-		return (0);
 	ft_bzero(&stacks, sizeof(t_stacks));
 	stacks.stack_a = parse_inputs(argc - 1, argv + 1);
 	if (!stacks.stack_a)
-	{
-		write(2, "Error!\n", 7);
-		return (1);
-	}
+		error_out(&stacks);
 	while (read(0, &c, 1) > 0)
 	{
 		if (c == 'r')

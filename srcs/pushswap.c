@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pushswap.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edgribei <edgribei@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/09 13:55:04 by edgribei          #+#    #+#             */
+/*   Updated: 2025/07/09 13:59:02 by edgribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <instructions.h>
 #include <libft.h>
 #include <stack.h>
@@ -5,30 +17,6 @@
 #include <parser.h>
 #include <my_math.h>
 #include <solve.h>
-
-/*
-#include <stdio.h>
-
-void	print_stacks(t_stacks *stacks)
-{
-	t_list *tmpa = stacks->stack_a;
-	t_list *tmpb = stacks->stack_b;
-	while (tmpa || tmpb)
-	{
-		if (tmpa)
-		{
-			printf("%ld", (long) tmpa->content);
-			tmpa = tmpa->next;
-		}
-		if (tmpb)
-		{
-			printf("\t%ld", (long) tmpb->content);
-			tmpb = tmpb->next;
-		}
-		printf("\n");
-	}
-}
-*/
 
 void	rotate_to_top(t_stacks *stacks)
 {
@@ -49,7 +37,7 @@ void	rotate_to_top(t_stacks *stacks)
 
 void	pusha_loop(t_stacks *stacks)
 {
-	t_cost	c;
+	t_cost			c;
 	const t_list	*helper = stacks->stack_a;
 
 	ft_bzero(&c, sizeof(t_cost));
@@ -103,16 +91,16 @@ void	pushb_loop(t_stacks *stacks)
 
 void	small_solve(t_list **lsta)
 {
-	if ((*lsta)->content > (*lsta)->next->content &&
-		((*lsta)->content < (*lsta)->next->next->content ||
-		(*lsta)->next->content > (*lsta)->next->next->content))
+	if ((*lsta)->content > (*lsta)->next->content
+		&& ((*lsta)->content < (*lsta)->next->next->content
+			|| (*lsta)->next->content > (*lsta)->next->next->content))
 	{
 		write(1, "sa\n", 3);
 		stack_swap(lsta);
 		return ;
 	}
-	if ((*lsta)->content < (*lsta)->next->next->content &&
-		(*lsta)->next->content > (*lsta)->next->next->content)
+	if ((*lsta)->content < (*lsta)->next->next->content
+		&& (*lsta)->next->content > (*lsta)->next->next->content)
 	{
 		write(1, "sa\n", 3);
 		stack_swap(lsta);
@@ -143,6 +131,5 @@ int	main(int argc, char **argv)
 	small_solve(&(stacks.stack_a));
 	pusha_loop(&stacks);
 	rotate_to_top(&stacks);
-
 	ft_lstclear(&(stacks.stack_a), NULL);
 }

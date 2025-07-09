@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edgribei <edgribei@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/09 14:23:17 by edgribei          #+#    #+#             */
+/*   Updated: 2025/07/09 14:23:40 by edgribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STACK_H
 # define STACK_H
 # include <libft.h>
 
-typedef struct	s_stackpair
+typedef struct s_stackpair
 {
 	t_list	*stack_a;
 	t_list	*stack_b;

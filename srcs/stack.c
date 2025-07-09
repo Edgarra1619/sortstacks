@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edgribei <edgribei@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/09 14:14:47 by edgribei          #+#    #+#             */
+/*   Updated: 2025/07/09 14:15:10 by edgribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stack.h>
 
 void	stack_rotate(t_list **stack, unsigned int rotn)
@@ -24,7 +36,7 @@ void	stack_rrotate(t_list **stack, unsigned int rotn)
 
 t_list	*stack_pop(t_list **stack)
 {
-	t_list	*const tmp = *stack;
+	t_list *const	tmp = *stack;
 
 	*stack = tmp->next;
 	tmp->next = NULL;
@@ -38,7 +50,7 @@ void	stack_push(t_list **stack, t_list *node)
 
 void	stack_swap(t_list **stack)
 {
-	t_list	*const tmp = (*stack)->next;
+	t_list *const	tmp = (*stack)->next;
 
 	(*stack)->next = tmp->next;
 	tmp->next = *stack;

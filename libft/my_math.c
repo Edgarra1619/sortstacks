@@ -6,7 +6,7 @@
 /*   By: edgribei <edgribei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 19:53:29 by edgribei          #+#    #+#             */
-/*   Updated: 2025/06/16 19:53:30 by edgribei         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:04:05 by edgribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,3 @@ int	lerp(const int a, const int b, const float t)
 		return (a);
 	return (a * (1 - t) + b * t);
 }
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edgribei <edgribei@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/09 13:59:21 by edgribei          #+#    #+#             */
+/*   Updated: 2025/07/09 14:03:50 by edgribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <libft.h>
 #include <stdlib.h>
 
@@ -6,6 +18,8 @@ void	bbl_srt(int *arr, const size_t size)
 	size_t	i;
 	size_t	j;
 
+	if (!arr)
+		return ;
 	i = 0;
 	while (i < size - 1)
 	{
@@ -27,17 +41,15 @@ void	bbl_srt(int *arr, const size_t size)
 //returns -1 on error
 t_list	*arr_to_indx_lst(int *arr, const size_t size)
 {
-	int		*const tmp = ft_memdup(arr, size * sizeof(int));
-	size_t	i;
-	t_list	*lst;
-	t_list	*new;
+	int *const	tmp = ft_memdup(arr, size * sizeof(int));
+	size_t		i;
+	t_list		*lst;
+	t_list		*new;
 
-	if (!tmp)
-		return (NULL);
 	bbl_srt(tmp, size);
 	i = 0;
 	lst = NULL;
-	while (i < size)
+	while (i < size && tmp)
 	{
 		new = ft_lstnew((void *)
 				((int *)ft_memfnd(tmp, size, arr + i, sizeof(int)) - tmp));
@@ -45,7 +57,7 @@ t_list	*arr_to_indx_lst(int *arr, const size_t size)
 		{
 			ft_lstclear(&lst, NULL);
 			lst = NULL;
-			break;
+			break ;
 		}
 		ft_lstadd_back(&lst, new);
 		i++;
@@ -57,7 +69,7 @@ t_list	*arr_to_indx_lst(int *arr, const size_t size)
 
 void	check_sorted(int *arr, int size)
 {
-	int	*const orig = arr;
+	int *const	orig = arr;
 
 	while (--size)
 	{
@@ -71,8 +83,8 @@ void	check_sorted(int *arr, int size)
 
 t_list	*parse_inputs(const int c, char **strs)
 {
-	int	*const ret = ft_calloc(c, sizeof(int));
-	int	i;
+	int *const	ret = ft_calloc(c, sizeof(int));
+	int			i;
 
 	if (!ret)
 		return (NULL);
@@ -87,11 +99,10 @@ t_list	*parse_inputs(const int c, char **strs)
 		if (ft_memfnd(ret, i, ret + i, sizeof(int)))
 		{
 			free(ret);
-			return(NULL);
+			return (NULL);
 		}
 		i++;
 	}
 	check_sorted(ret, c);
 	return (arr_to_indx_lst(ret, c));
 }
-

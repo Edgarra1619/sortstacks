@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cheapest.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edgribei <edgribei@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/09 14:04:23 by edgribei          #+#    #+#             */
+/*   Updated: 2025/07/09 14:12:43 by edgribei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include <stack.h>
 #include <my_math.h>
@@ -44,21 +56,18 @@ void	cost_to_topa(t_stacks *stacks, int num, t_cost *cost)
 	i = 0;
 	while (stck)
 	{
-		if ((long) stck->content == num + 1)
+		if ((long) stck->content <= max
+			&& (max == stacks->mina || (long) stck->content > num))
 		{
 			cost->rota = i;
-			cost->rrota = size - i;
-			return ;
-		}
-		if ((long) stck->content <= max && (max == stacks->mina || (long) stck->content > num))
-		{
-			cost->rota = i;
-			cost->rrota = size - i;
 			max = (long) stck->content;
 		}
+		if ((long) stck->content == num + 1)
+			break ;
 		stck = stck->next;
 		i++;
 	}
+	cost->rrota = size - cost->rota;
 }
 
 void	cost_to_topb(t_stacks *stacks, int num, t_cost *cost)
@@ -72,9 +81,9 @@ void	cost_to_topb(t_stacks *stacks, int num, t_cost *cost)
 	i = 0;
 	while (stck)
 	{
-		if ((long) stck->content == num - 1 ||
-			((long) stck->content == stacks->maxb &&
-			(num > stacks->maxb || num < stacks->minb)))
+		if ((long) stck->content == num - 1
+			|| ((long) stck->content == stacks->maxb
+				&& (num > stacks->maxb || num < stacks->minb)))
 		{
 			update_costb(cost, i, size);
 			return ;
