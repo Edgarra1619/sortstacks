@@ -1,7 +1,7 @@
 NAME1 = push_swap
 NAME2 = checker
 SRCS1 = pushswap.c parser.c cheapest.c stack.c solve.c
-SRCS2 = parser_bonus.c stack.c checker.c sorted.c
+SRCS2 = parser_bonus.c stack_bonus.c checker.c sorted.c
 TESTARGS = 10 2 5 12 11 -10 59 -11199 0 200
 BONUS = 0
 OPTFLAG = 0
