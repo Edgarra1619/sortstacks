@@ -19,16 +19,15 @@ CFLAGS += -D BONUS
 SRCS += 
 endif
 
-all: $(NAME1) $(NAME2)
+all: $(NAME1)
 
-bonus:
-	make BONUS=1
+bonus: $(NAME2)
 
 clean:
 	$(RM) -r $(OBJDIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME1) $(NAME2)
 	$(MAKE) -C $(LIBFT) fclean
 
 re: clean all
@@ -52,7 +51,6 @@ $(MINILIBX)libmlx.a $(MINILIBX)libmlx_Linux.a:
 test: $(NAME1) $(NAME2)
 	./$(NAME1) $(TESTARGS) | wc -l
 	./$(NAME1) $(TESTARGS) | ./$(NAME2) $(TESTARGS)
-
 
 gprof: $(NAME)
 	./$(NAME) $(TESTARGS)
