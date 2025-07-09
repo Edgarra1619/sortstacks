@@ -23,6 +23,11 @@ int	check_sorted_stack(t_stacks *stacks);
 
 void	error_out(t_stacks *const stacks)
 {
+	char	c;
+
+	c = 0;
+	while (c != '\n' && read(1, &c, 1) == 1)
+		;
 	ft_lstclear(&(stacks->stack_a), NULL);
 	ft_lstclear(&(stacks->stack_b), NULL);
 	write(2, "Error!\n", 7);
